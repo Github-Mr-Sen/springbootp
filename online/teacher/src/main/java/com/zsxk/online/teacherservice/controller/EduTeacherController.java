@@ -27,6 +27,10 @@ public class EduTeacherController {
 
     @Autowired
     private EduTeacherService service;
+    /**
+    * 获取所有记录
+    *
+    * */
     @GetMapping()
     public Result getAllTeachers() {
         //返回所有的老师信息
@@ -35,15 +39,21 @@ public class EduTeacherController {
         return Result.ok().data("item",list);
 
     }
+    /**
+    * 删除记录
+    * */
 @DeleteMapping("/{id}")
-    public boolean delTeacherByid(@PathVariable("id") String id) {
+    public Result delTeacherByid(@PathVariable("id") String id) {
 
     boolean b = service.removeById(id);
-    return b;
+    if (b) {
+        Result.ok();
+    }
+    return Result.error();
 
 }
 
-/*
+/**
 * 分页查询EduTeacher表
 * */
     @GetMapping("/{current}/{size}")
@@ -59,7 +69,7 @@ public class EduTeacherController {
         System.out.println(records.size());
         return Result.ok().data(data);
     }
-/*
+/**
 * 不定条件查询EduTeacher表
 *
 * */
@@ -75,9 +85,11 @@ public class EduTeacherController {
         return  Result.ok().data("total",total).data("records",records);
     }
 
-
-    @PostMapping("/add")
-    public Result conditonPageTeachers(@RequestBody(required = false) EduTeacher teacher) {
+/**
+* 添加一条记录
+* */
+    @PostMapping()
+    public Result addTeacher(@RequestBody(required = false) EduTeacher teacher) {
 
         boolean save = this.service.save(teacher);
         if (save) {
@@ -86,8 +98,35 @@ public class EduTeacherController {
 
             return Result.error();
         }
+    }
 
 
+/**
+* 根据id查询记录
+* */
+    @GetMapping("/{id}")
+    public Result getThInfo(@PathVariable("id") long id) {
+
+        EduTeacher byId = this.service.getById(id);
+        if (byId != null) {
+            return Result.ok().data("teacher", byId);
+        }
+        return Result.error();
+    }
+/**
+* 根据id更新数据信息
+* */
+    @PutMapping("/{id}")
+    public Result updateThInfo(@PathVariable("id") String id,
+                               @RequestBody  EduTeacher updatTh) {
+
+        updatTh.setId(id);
+
+        boolean b = this.service.updateById(updatTh);
+        if (b) {
+            return Result.ok();
+        }
+        return Result.error();
 
     }
 
