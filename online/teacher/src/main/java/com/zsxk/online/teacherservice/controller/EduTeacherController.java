@@ -4,10 +4,7 @@ package com.zsxk.online.teacherservice.controller;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
 import com.zsxk.online.teacherservice.service.EduTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,13 @@ public class EduTeacherController {
         return list;
 
     }
+@DeleteMapping("/{id}")
+    public boolean delTeacherByid(@PathVariable("id") String id) {
+
+    boolean b = service.removeById(id);
+    return b;
+
+}
 
 }
 
