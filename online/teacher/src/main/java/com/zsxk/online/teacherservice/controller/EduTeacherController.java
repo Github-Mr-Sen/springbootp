@@ -1,13 +1,16 @@
 package com.zsxk.online.teacherservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsxk.online.common.Result;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
 import com.zsxk.online.teacherservice.service.EduTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,7 +28,7 @@ public class EduTeacherController {
     private EduTeacherService service;
     @GetMapping()
     public Result getAllTeachers() {
-
+        //返回所有的老师信息
         List<EduTeacher> list = service.list(null);
 
         return Result.ok().data("item",list);
@@ -38,6 +41,19 @@ public class EduTeacherController {
     return b;
 
 }
+
+
+    @GetMapping("/{current}/{size}")
+    public Result getAllPageTeachers(@PathVariable("current") long current,
+                                     @PathVariable("size") long size) {
+        Map<String, Object> data = new HashMap<>();
+        Page<EduTeacher> page =new Page<>(current, size);
+        List<EduTeacher> records = page.getRecords();
+        long total = page.getTotal();
+        data.put("records", records);
+        data.put("total", total);
+        return Result.ok().data(data);
+    }
 
 }
 
