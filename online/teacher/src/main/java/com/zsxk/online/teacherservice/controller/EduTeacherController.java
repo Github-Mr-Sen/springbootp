@@ -1,6 +1,7 @@
 package com.zsxk.online.teacherservice.controller;
 
 
+import com.zsxk.online.common.Result;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
 import com.zsxk.online.teacherservice.service.EduTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class EduTeacherController {
     @Autowired
     private EduTeacherService service;
     @GetMapping()
-    public List<EduTeacher> getAllTeachers() {
+    public Result getAllTeachers() {
 
         List<EduTeacher> list = service.list(null);
 
-        return list;
+        return Result.ok().data("item",list);
 
     }
 @DeleteMapping("/{id}")
