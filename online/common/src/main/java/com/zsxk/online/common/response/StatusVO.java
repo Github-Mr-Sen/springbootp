@@ -1,4 +1,4 @@
-package com.zsxk.online.common;
+package com.zsxk.online.common.response;
 
 public interface StatusVO {
     /*

@@ -1,13 +1,11 @@
 package com.zsxk.online.teacherservice.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zsxk.online.common.Result;
+import com.zsxk.online.common.response.Result;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
 import com.zsxk.online.teacherservice.entity.QueryTeacher;
 import com.zsxk.online.teacherservice.service.EduTeacherService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,7 +74,23 @@ public class EduTeacherController {
         long total = page.getTotal();
         return  Result.ok().data("total",total).data("records",records);
     }
-//这里其实可以直接
-//    wrapper.like(StringUtils.isNotEmpty(queryTeacher.getName()),"name",queryTeacher.getName());
+
+
+    @PostMapping("/add")
+    public Result conditonPageTeachers(@RequestBody(required = false) EduTeacher teacher) {
+
+        boolean save = this.service.save(teacher);
+        if (save) {
+            return Result.ok();
+        } else {
+
+            return Result.error();
+        }
+
+
+
+    }
+
+
 }
 
