@@ -48,10 +48,12 @@ public class EduTeacherController {
                                      @PathVariable("size") long size) {
         Map<String, Object> data = new HashMap<>();
         Page<EduTeacher> page =new Page<>(current, size);
+        service.page(page, null);
         List<EduTeacher> records = page.getRecords();
         long total = page.getTotal();
         data.put("records", records);
         data.put("total", total);
+        System.out.println(records.size());
         return Result.ok().data(data);
     }
 
