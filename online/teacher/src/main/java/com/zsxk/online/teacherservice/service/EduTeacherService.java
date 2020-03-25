@@ -1,7 +1,9 @@
 package com.zsxk.online.teacherservice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zsxk.online.teacherservice.entity.QueryTeacher;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduTeacherService extends IService<EduTeacher> {
 
+    void condionQuery(Page<EduTeacher> page, QueryTeacher query);
 }

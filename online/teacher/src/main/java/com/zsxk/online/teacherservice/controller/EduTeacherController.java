@@ -1,10 +1,13 @@
 package com.zsxk.online.teacherservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsxk.online.common.Result;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
+import com.zsxk.online.teacherservice.entity.QueryTeacher;
 import com.zsxk.online.teacherservice.service.EduTeacherService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +45,9 @@ public class EduTeacherController {
 
 }
 
-
+/*
+* 分页查询EduTeacher表
+* */
     @GetMapping("/{current}/{size}")
     public Result getAllPageTeachers(@PathVariable("current") long current,
                                      @PathVariable("size") long size) {
@@ -56,6 +61,22 @@ public class EduTeacherController {
         System.out.println(records.size());
         return Result.ok().data(data);
     }
+/*
+* 不定条件查询EduTeacher表
+*
+* */
+    @PostMapping("/{current}/{size}")
+    public Result conditonPageTeachers(@PathVariable("current") long current,
+                                       @PathVariable("size") long size,
+                                      @RequestBody(required = false) QueryTeacher query) {
 
+        Page<EduTeacher> page = new Page<>(current, size);
+        service.condionQuery(page,query);
+        List<EduTeacher> records = page.getRecords();
+        long total = page.getTotal();
+        return  Result.ok().data("total",total).data("records",records);
+    }
+//这里其实可以直接
+//    wrapper.like(StringUtils.isNotEmpty(queryTeacher.getName()),"name",queryTeacher.getName());
 }
 
