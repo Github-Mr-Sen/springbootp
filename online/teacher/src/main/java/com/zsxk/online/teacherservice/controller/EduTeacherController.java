@@ -27,40 +27,41 @@ public class EduTeacherController {
 
     @Autowired
     private EduTeacherService service;
+
     /**
-    * 获取所有记录
-    *
-    * */
+     * 获取所有记录
+     */
     @GetMapping()
     public Result getAllTeachers() {
         //返回所有的老师信息
         List<EduTeacher> list = service.list(null);
 
-        return Result.ok().data("item",list);
+        return Result.ok().data("item", list);
 
     }
+
     /**
-    * 删除记录
-    * */
-@DeleteMapping("/{id}")
+     * 删除记录
+     */
+    @DeleteMapping("/{id}")
     public Result delTeacherByid(@PathVariable("id") String id) {
 
-    boolean b = service.removeById(id);
-    if (b) {
-        Result.ok();
+        boolean b = service.removeById(id);
+        if (b) {
+            Result.ok();
+        }
+        return Result.error();
+
     }
-    return Result.error();
 
-}
-
-/**
-* 分页查询EduTeacher表
-* */
+    /**
+     * 分页查询EduTeacher表
+     */
     @GetMapping("/{current}/{size}")
     public Result getAllPageTeachers(@PathVariable("current") long current,
                                      @PathVariable("size") long size) {
         Map<String, Object> data = new HashMap<>();
-        Page<EduTeacher> page =new Page<>(current, size);
+        Page<EduTeacher> page = new Page<>(current, size);
         service.page(page, null);
         List<EduTeacher> records = page.getRecords();
         long total = page.getTotal();
@@ -69,25 +70,25 @@ public class EduTeacherController {
         System.out.println(records.size());
         return Result.ok().data(data);
     }
-/**
-* 不定条件查询EduTeacher表
-*
-* */
+
+    /**
+     * 不定条件查询EduTeacher表
+     */
     @PostMapping("/{current}/{size}")
     public Result conditonPageTeachers(@PathVariable("current") long current,
                                        @PathVariable("size") long size,
-                                      @RequestBody(required = false) QueryTeacher query) {
+                                       @RequestBody(required = false) QueryTeacher query) {
 
         Page<EduTeacher> page = new Page<>(current, size);
-        service.condionQuery(page,query);
+        service.condionQuery(page, query);
         List<EduTeacher> records = page.getRecords();
         long total = page.getTotal();
-        return  Result.ok().data("total",total).data("records",records);
+        return Result.ok().data("total", total).data("records", records);
     }
 
-/**
-* 添加一条记录
-* */
+    /**
+     * 添加一条记录
+     */
     @PostMapping()
     public Result addTeacher(@RequestBody(required = false) EduTeacher teacher) {
 
@@ -101,9 +102,9 @@ public class EduTeacherController {
     }
 
 
-/**
-* 根据id查询记录
-* */
+    /**
+     * 根据id查询记录
+     */
     @GetMapping("/{id}")
     public Result getThInfo(@PathVariable("id") long id) {
 
@@ -113,12 +114,13 @@ public class EduTeacherController {
         }
         return Result.error();
     }
-/**
-* 根据id更新数据信息
-* */
+
+    /**
+     * 根据id更新数据信息
+     */
     @PutMapping("/{id}")
     public Result updateThInfo(@PathVariable("id") String id,
-                               @RequestBody  EduTeacher updatTh) {
+                               @RequestBody EduTeacher updatTh) {
 
         updatTh.setId(id);
 
@@ -130,6 +132,10 @@ public class EduTeacherController {
 
     }
 
+    @GetMapping("/exception")
+    public Result exceptionTest() {
+        int i =10/0;
+        return Result.ok();
+    }
 
 }
-
