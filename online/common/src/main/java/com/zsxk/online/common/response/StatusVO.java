@@ -4,7 +4,7 @@ public interface StatusVO {
     /*
     * 成功状态码
     * */
-     int success =10000;
+     int success =20000;
      /**
       * 没有操作权限
       * */
