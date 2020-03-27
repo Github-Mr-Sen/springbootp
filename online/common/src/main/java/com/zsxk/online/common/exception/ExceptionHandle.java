@@ -16,8 +16,6 @@ public class ExceptionHandle {
     public Result exceptonInfo(Exception e) {
         e.printStackTrace();
         return Result.error().message("出现异常： " + e.getMessage());
-
-
     }
 
 }
