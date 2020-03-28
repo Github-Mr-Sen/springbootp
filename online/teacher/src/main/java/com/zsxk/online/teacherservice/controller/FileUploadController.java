@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/eduservice/oss")
+@RequestMapping("/oss")
 @CrossOrigin
 public class FileUploadController {
 
