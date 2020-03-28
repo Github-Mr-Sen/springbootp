@@ -49,7 +49,7 @@ public class EduTeacherController {
 
         boolean b = service.removeById(id);
         if (b) {
-            Result.ok();
+            return Result.ok();
         }
         return Result.error();
 
