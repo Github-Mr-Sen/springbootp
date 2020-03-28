@@ -33,6 +33,7 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
     public void condionQuery(Page<EduTeacher> page, QueryTeacher query) {
 
         QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("gmt_create");
         //this.baseMapper 在ServiceImpl 中定义的
         if (query == null) {
             this.baseMapper.selectPage(page, null);

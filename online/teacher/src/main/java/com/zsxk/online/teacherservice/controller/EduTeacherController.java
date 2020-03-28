@@ -1,6 +1,7 @@
 package com.zsxk.online.teacherservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsxk.online.common.response.Result;
 import com.zsxk.online.teacherservice.entity.EduTeacher;
@@ -63,7 +64,9 @@ public class EduTeacherController {
                                      @PathVariable("size") long size) {
         Map<String, Object> data = new HashMap<>();
         Page<EduTeacher> page = new Page<>(current, size);
-        service.page(page, null);
+        QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("gmt_create");
+        service.page(page, wrapper);
         List<EduTeacher> records = page.getRecords();
         long total = page.getTotal();
         data.put("records", records);
