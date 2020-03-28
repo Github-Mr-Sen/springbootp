@@ -84,7 +84,9 @@ public class EduTeacherController {
         service.condionQuery(page, query);
         List<EduTeacher> records = page.getRecords();
         long total = page.getTotal();
-        return Result.ok().data("total", total).data("records", records);
+        return Result.ok().data("total", total).
+                data("records", records).
+                data("page",current).data("size",size);
     }
 
     /**
