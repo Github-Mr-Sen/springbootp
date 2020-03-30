@@ -18,7 +18,7 @@ import java.util.UUID;
 public class FileUploadController {
 
     //上传讲师头像的方法
-    @PostMapping("upload")
+    @PostMapping("/upload")
     public Result uploadTeacherImg(@RequestParam("file") MultipartFile file) {
         // Endpoint以杭州为例，其它Region请按实际情况填写。
         String endpoint = ConstantPropertiesUtil.ENDPOINT;

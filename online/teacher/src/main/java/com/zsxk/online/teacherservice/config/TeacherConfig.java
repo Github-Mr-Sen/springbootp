@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 /**
  * 扫描数据库操作接口*/
-@MapperScan("com.zsxk.online.teacherservice.mapper")
+@MapperScan({"com.zsxk.online.subjectservice.mapper","com.zsxk.online.teacherservice.mapper"})
 public class TeacherConfig {
 /**
  * 逻辑删除插件
