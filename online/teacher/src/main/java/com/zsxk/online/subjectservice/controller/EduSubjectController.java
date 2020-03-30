@@ -3,18 +3,17 @@ package com.zsxk.online.subjectservice.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.zsxk.online.common.response.Result;
+import com.zsxk.online.subjectservice.entity.treenode.ParentNode;
 import com.zsxk.online.subjectservice.excel.SubjectData;
 import com.zsxk.online.subjectservice.excel.listenner.SubjectExcelListener;
 import com.zsxk.online.subjectservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * <p>
@@ -48,5 +47,12 @@ public class EduSubjectController {
 
     }
 
+    @GetMapping
+    public Result subTree() {
+       List<ParentNode> treeList =  service.getSubTree();
+
+        return Result.ok().data("list",treeList);
+
+    }
 }
 

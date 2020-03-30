@@ -2,7 +2,10 @@ package com.zsxk.online.subjectservice.service;
 
 import com.zsxk.online.subjectservice.entity.EduSubject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zsxk.online.subjectservice.entity.treenode.ParentNode;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,4 +19,5 @@ public interface EduSubjectService extends IService<EduSubject> {
 
     void saveSub(MultipartFile fil);
 
+    List<ParentNode> getSubTree();
 }
