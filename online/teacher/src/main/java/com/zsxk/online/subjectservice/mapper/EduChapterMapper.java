@@ -1,7 +1,9 @@
 package com.zsxk.online.subjectservice.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zsxk.online.subjectservice.entity.EduChapter;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zsxk.online.subjectservice.entity.course.Chapter;
 
 /**
  * <p>

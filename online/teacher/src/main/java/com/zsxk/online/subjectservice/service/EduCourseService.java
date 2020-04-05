@@ -14,5 +14,9 @@ import com.zsxk.online.subjectservice.entity.vo.CourseInfo;
  */
 public interface EduCourseService extends IService<EduCourse> {
 
-    void saveCouseInfo(CourseInfo info);
+    String saveCouseInfo(CourseInfo info);
+
+    CourseInfo getCourseInfoById(String id);
+
+    void updateCourse(CourseInfo courseInfo);
 }

@@ -28,7 +28,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
      * 保存课程信息，课程主表信息，描述信息
      * */
     @Override
-    public void saveCouseInfo(CourseInfo info) {
+    public String saveCouseInfo(CourseInfo info) {
         EduCourse course = new EduCourse();
         BeanUtils.copyProperties(info,course);
         //向EduCourse表中添加数据
@@ -43,5 +43,38 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         description.setId(course.getId());
         this.descriptionService.save(description);
 
+        return course.getId();
+    }
+
+    @Override
+    public CourseInfo getCourseInfoById(String id) {
+
+        EduCourse course = this.baseMapper.selectById(id);
+        //查询主信息
+        CourseInfo courseInfo = new CourseInfo();
+        BeanUtils.copyProperties(course,courseInfo);
+
+        //查询描述信息
+        EduCourseDescription description = this.descriptionService.getById(id);
+        courseInfo.setDescription(description.getDescription());
+        return courseInfo;
+    }
+
+    @Override
+    public void updateCourse(CourseInfo courseInfo) {
+        //修改课程主表信息
+        EduCourse course = new EduCourse();
+        BeanUtils.copyProperties(courseInfo,course);
+        int i = this.baseMapper.updateById(course);
+        if (i<0) {
+            throw new RuntimeException("updateCourse 方法：主表更新数据失败");
+        }
+        //修改描述信息
+        EduCourseDescription description = new EduCourseDescription();
+        BeanUtils.copyProperties(courseInfo,description);
+        boolean b = this.descriptionService.updateById(description);
+        if (!b) {
+            throw new RuntimeException("updateCourse 方法：描述信息更新数据失败");
+        }
     }
 }

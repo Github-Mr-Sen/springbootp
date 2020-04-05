@@ -1,9 +1,11 @@
 package com.zsxk.online.subjectservice.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -39,9 +41,10 @@ public class EduChapter implements Serializable {
     @ApiModelProperty(value = "显示排序")
     private Integer sort;
 
+    @TableField(fill = FieldFill.INSERT)
     @ApiModelProperty(value = "创建时间")
     private Date gmtCreate;
-
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @ApiModelProperty(value = "更新时间")
     private Date gmtModified;
 

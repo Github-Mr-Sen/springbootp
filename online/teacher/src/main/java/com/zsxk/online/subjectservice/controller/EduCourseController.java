@@ -2,6 +2,7 @@ package com.zsxk.online.subjectservice.controller;
 
 
 import com.zsxk.online.common.response.Result;
+import com.zsxk.online.subjectservice.entity.EduCourse;
 import com.zsxk.online.subjectservice.entity.vo.CourseInfo;
 import com.zsxk.online.subjectservice.service.EduCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,26 @@ public class EduCourseController {
     @PostMapping
     public Result saveCourseInfo(@RequestBody CourseInfo info) {
 
-        this.service.saveCouseInfo(info);
-        return Result.ok();
+        String id =this.service.saveCouseInfo(info);
+        return Result.ok().data("courseId",id);
 
+    }
+
+
+    @GetMapping("/{id}")
+    public Result getCourseInfoById(@PathVariable("id") String id) {
+
+        CourseInfo course;
+        course = this.service.getCourseInfoById(id);
+
+        return Result.ok().data("course",course);
+    }
+    @PutMapping()
+    public Result updateCourseById(@RequestBody(required = true) CourseInfo courseInfo){
+
+        this.service.updateCourse(courseInfo);
+
+        return Result.ok();
     }
 
 }

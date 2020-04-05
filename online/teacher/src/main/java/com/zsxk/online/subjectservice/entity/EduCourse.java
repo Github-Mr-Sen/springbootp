@@ -2,12 +2,10 @@ package com.zsxk.online.subjectservice.entity;
 
 import java.math.BigDecimal;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,8 +39,15 @@ public class EduCourse implements Serializable {
     @ApiModelProperty(value = "课程专业ID")
     private String subjectId;
 
+    @ApiModelProperty(value = "课程父ID")
+    private String subjectParentId;
+
     @ApiModelProperty(value = "课程标题")
     private String title;
+
+    @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
+    @TableLogic
+    private Integer is_deleted;
 
     @ApiModelProperty(value = "课程销售价格，设置为0则可免费观看")
     private BigDecimal price;
