@@ -86,8 +86,8 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
     public boolean deleteChapter(String chapterId) {
         boolean exitVideos = this.isExitVideos(chapterId);
         if (exitVideos) {
-            throw new RuntimeException("该章节下没有可删除的小节");
-        } else {
+            throw new RuntimeException("该章节下有小节不可删除");
+        } else {//没有小节的情况
             int i = this.baseMapper.deleteById(chapterId);
             return i>0;
         }
