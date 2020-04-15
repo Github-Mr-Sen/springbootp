@@ -3,6 +3,7 @@ package com.zsxk.online.subjectservice.service;
 import com.zsxk.online.subjectservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zsxk.online.subjectservice.entity.vo.CourseInfo;
+import com.zsxk.online.subjectservice.entity.vo.CoursePublis;
 
 /**
  * <p>
@@ -19,4 +20,6 @@ public interface EduCourseService extends IService<EduCourse> {
     CourseInfo getCourseInfoById(String id);
 
     void updateCourse(CourseInfo courseInfo);
+
+    CoursePublis publishInfo(String id);
 }

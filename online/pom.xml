@@ -5,6 +5,7 @@
 	<modules>
 		<module>teacher</module>
         <module>common</module>
+        <module>videoplay</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

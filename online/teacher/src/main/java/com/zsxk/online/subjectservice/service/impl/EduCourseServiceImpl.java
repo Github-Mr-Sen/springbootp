@@ -3,6 +3,7 @@ package com.zsxk.online.subjectservice.service.impl;
 import com.zsxk.online.subjectservice.entity.EduCourse;
 import com.zsxk.online.subjectservice.entity.EduCourseDescription;
 import com.zsxk.online.subjectservice.entity.vo.CourseInfo;
+import com.zsxk.online.subjectservice.entity.vo.CoursePublis;
 import com.zsxk.online.subjectservice.mapper.EduCourseMapper;
 import com.zsxk.online.subjectservice.service.EduCourseDescriptionService;
 import com.zsxk.online.subjectservice.service.EduCourseService;
@@ -44,6 +45,15 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         this.descriptionService.save(description);
 
         return course.getId();
+    }
+
+    /**
+     * 发布课程时的数据
+     * */
+    @Override
+    public CoursePublis publishInfo(String id) {
+        CoursePublis coursePublis = this.baseMapper.getCoursePublishInfo(id);
+        return coursePublis;
     }
 
     @Override

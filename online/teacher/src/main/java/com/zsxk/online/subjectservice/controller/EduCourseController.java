@@ -4,6 +4,7 @@ package com.zsxk.online.subjectservice.controller;
 import com.zsxk.online.common.response.Result;
 import com.zsxk.online.subjectservice.entity.EduCourse;
 import com.zsxk.online.subjectservice.entity.vo.CourseInfo;
+import com.zsxk.online.subjectservice.entity.vo.CoursePublis;
 import com.zsxk.online.subjectservice.service.EduCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,25 @@ public class EduCourseController {
 
         this.service.updateCourse(courseInfo);
 
+        return Result.ok();
+    }
+    @GetMapping("/publish/{id}")
+    public Result getPublisInfo(@PathVariable("id") String id){
+
+        CoursePublis coursePublis = this.service.publishInfo(id);
+
+        return Result.ok().data("course",coursePublis);
+    }
+    /*
+    * 课程的最终发布，就是把status值改为normal
+    * */
+    @PutMapping("/publish/{id}")
+    public Result updatePubliStatus(@PathVariable("id") String id){
+
+        EduCourse coursePublis = new EduCourse();
+        coursePublis.setId(id);
+        coursePublis.setStatus("Normal");
+        this.service.updateById(coursePublis);
         return Result.ok();
     }
 
