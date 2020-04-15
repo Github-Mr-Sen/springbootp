@@ -1,6 +1,9 @@
 package com.zsxk.online.subjectservice.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zsxk.online.common.response.Result;
 import com.zsxk.online.subjectservice.entity.EduCourse;
 import com.zsxk.online.subjectservice.entity.vo.CourseInfo;
@@ -8,6 +11,8 @@ import com.zsxk.online.subjectservice.entity.vo.CoursePublis;
 import com.zsxk.online.subjectservice.service.EduCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -66,6 +71,25 @@ public class EduCourseController {
         this.service.updateById(coursePublis);
         return Result.ok();
     }
+
+    @PostMapping("/publish/list/{currentPage}/{size}")
+    public Result updatePubliStatus(@PathVariable("currentPage") long currentPage,
+                                     @PathVariable("size") long size,
+                                    @RequestBody(required = false) EduCourse course){
+        QueryWrapper<EduCourse> eduCourseQueryWrapper = new QueryWrapper<>();
+        Page<EduCourse> eduCoursePage = new Page<>(currentPage,size);
+        if (course != null) {
+            eduCourseQueryWrapper.eq("title", course.getTitle());
+            eduCourseQueryWrapper.eq("status", course.getStatus());
+        }
+        IPage<EduCourse> page = this.service.page(eduCoursePage, eduCourseQueryWrapper);
+        long total = page.getTotal();
+        List<EduCourse> records = page.getRecords();
+        return Result.ok().data("total",total).
+                            data("records",records).
+                            data("currentPage",currentPage);
+    }
+
 
 }
 
